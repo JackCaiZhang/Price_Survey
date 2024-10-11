@@ -7,9 +7,7 @@ import pandas as pd
 from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql import text
 
-from Price_Survey.DBOperration import DBOperation
-from Price_Survey.ORM import TaskRecycle
-from Price_Survey.ORM import PriceDict
+from DBOperration import DBOperation
 
 
 warnings.filterwarnings(action="ignore")
@@ -147,9 +145,6 @@ class ResultRecycle:
 
         # 从数据库查询交叉调研项目，给回收结果打上是否交叉调研标记
         engine = self.dbo.get_engine(server='local')
-        cross_projects_df: pd.DataFrame = pd.DataFrame()
-        result_df: pd.DataFrame = pd.DataFrame()
-        actual_cross_projects_df: pd.DataFrame = pd.DataFrame()
         distribut_date: str = data_df.loc[0, '月份']
         data_date = datetime.date(year=int(distribut_date.split('-')[0]),
                                   month=int(distribut_date.split('-')[1]),
@@ -178,7 +173,7 @@ class ResultRecycle:
             FROM dbo.task_distribution
             WHERE data_dept = '{data_dept}' AND data_month = '{data_month}' AND is_cross = 1
             """
-            cross_projects_df = pd.read_sql(text(sql_stmt), engine)
+            cross_projects_df: pd.DataFrame = pd.read_sql(text(sql_stmt), engine)
             cross_projects_df.columns = ['城市ID', '项目id', '物业类型']
             cross_projects_df['是否交叉调研'] = 1
             print(f'【{price_month}】月交叉调研项目数量：{cross_projects_df.shape[0] * 2}')
@@ -188,7 +183,7 @@ class ResultRecycle:
             data_df['是否交叉调研'] = data_df['是否交叉调研'].apply(lambda x: 0 if pd.isnull(x) else x)
 
             # 列顺序重新排列
-            result_df = pd.DataFrame({col: data_df[col] for col in self.recycle_std_columns})
+            result_df: pd.DataFrame = pd.DataFrame({col: data_df[col] for col in self.recycle_std_columns})
             if not no_admitted_price_df.empty:
                 print('前面批次存在未处理的交叉调研项目！')
                 no_admitted_price_df.columns = self.recycle_std_columns
@@ -215,7 +210,7 @@ class ResultRecycle:
                 delete_stmt = f"""
                 DELETE
                 FROM dbo.result_recycle
-                WHERE data_dept = '住宅'
+                WHERE data_dept = N'住宅'
                   AND data_month = '{price_month}'
                   AND is_cross = 1
                   AND (decoration_price IS NOT NULL OR rough_price IS NOT NULL)
@@ -235,7 +230,7 @@ class ResultRecycle:
                 print('未处理的交叉调研项目入库成功！')
 
                 # 计算同一批次回收的交叉调研项目
-                actual_cross_projects_df = cross_projects_df2[
+                actual_cross_projects_df: pd.DataFrame = cross_projects_df2[
                     cross_projects_df2['交叉调研项目是否同一批次回收'] == 1]
                 del actual_cross_projects_df['交叉调研项目是否同一批次回收']
             else:
@@ -243,7 +238,7 @@ class ResultRecycle:
                 delete_stmt = f"""
                                 DELETE
                                 FROM dbo.result_recycle
-                                WHERE data_dept = '住宅'
+                                WHERE data_dept = N'住宅'
                                   AND data_month = '{price_month}'
                                   AND is_cross = 1
                                   AND (decoration_price IS NOT NULL OR rough_price IS NOT NULL)
@@ -370,7 +365,7 @@ class ResultRecycle:
         将调研结果和价格字典插入数据库
         """
         engine = self.dbo.get_engine(server='local')
-        data_date: str = datetime.date.today().strftime('%Y-%m-%d')
+        # data_date: str = datetime.date.today().strftime('%Y-%m-%d')
         all_projects_df.columns = self.recycle_db_columns
         all_projects_df.drop_duplicates(subset=['city_id', 'data_month', 'project_id',
                                                 'property_type', 'person_in_charge'], inplace=True)

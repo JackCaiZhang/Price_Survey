@@ -51,7 +51,7 @@ if __name__ == '__main__':
     }
     result_df = result_df.astype(convert_dtypes)
     result_df['预售许可证名称'] = result_df['预售许可证名称'].apply(lambda x: x.replace('.0', ''))
-    # 保留两位小数，不足的补0
+    # 保留两位小数，不足则补0
     decimal_cols = ["建筑面积（m²）", "总价（元）", "均价/单价（元/m²）"]
     result_df[decimal_cols] = result_df[decimal_cols].round(2)
     result_df["数据时间"] = result_df["数据时间"].apply(lambda x: x.strftime("%Y-%m-%d"))

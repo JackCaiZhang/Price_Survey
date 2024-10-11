@@ -2,8 +2,8 @@ import sys
 
 import pandas as pd
 
-from Price_Survey.task_distributor import TaskDistributor
-from Price_Survey.result_recycle import ResultRecycle
+from task_distributor import TaskDistributor
+from result_recycle import ResultRecycle
 
 
 def task_executor(task_no: int, params_dict: dict) -> None:

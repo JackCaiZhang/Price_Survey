@@ -12,8 +12,7 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from Price_Survey.DBOperration import DBOperation
-from Price_Survey.ORM import TaskDistribution
+from DBOperration import DBOperation
 
 
 warnings.filterwarnings(action="ignore")
@@ -65,7 +64,7 @@ class TaskDistributor:
         self.recycle_interval_days = recycle_interval_days
 
     def data_preprocessing(self):
-        result_df: pd.DataFrame = pd.DataFrame()
+        # result_df: pd.DataFrame = pd.DataFrame()
         if self.dept_flag == 1:
             # 将分期名称聚合为一行（因为存在一个总期匹配多个分期的情况）
             base_columns: list[str] = ['城市类型', '城市ID', '城市', '月份', '总期id', '总期名',
@@ -79,7 +78,7 @@ class TaskDistributor:
                 '匹配的分期名称': '/'.join,
                 'newcode': '/'.join,
             }).reset_index()
-            result_df = agg_df.rename(columns={
+            result_df: pd.DataFrame = agg_df.rename(columns={
                 '总期id': '项目id',
                 '总期名': '项目名称',
                 '细分物业类型': '物业类型',
@@ -314,7 +313,6 @@ class TaskDistributor:
         tasks_df['任务分发时间'] = datetime.date.today()
         # 计算任务分发日期
         data_date: str = tasks_df.loc[0, '月份']
-        task_date: [datetime.date | str] = None
         if self.dept_flag == 1:
             task_date: [datetime.date | str] = datetime.date(year=int(data_date.split('-')[0]),
                                                              month=int(data_date.split('-')[1]),
