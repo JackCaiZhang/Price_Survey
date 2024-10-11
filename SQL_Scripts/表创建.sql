@@ -111,11 +111,11 @@ WHERE distribute_date = '2024-08-19';
 
 SELECT *
 FROM task_distribution
-WHERE distribute_date = '2024-08-05' AND project_name = '华润置地·九悦';
+WHERE distribute_date = '2024-08-05' AND project_name = N'华润置地·九悦';
 
 SELECT DISTINCT a.unique_field,
                 a.city,
-                ISNULL(a.project_name, a.newhouse_name) project_name,
+                ISNULL(a.project_name, a.newhouse_name) new_project_name,
                 a.data_month,
                 a.property_type,
                 a.decoration_of_main_sale,
@@ -142,7 +142,8 @@ ORDER BY a.person_in_charge, a.price_diff_ratio DESC ;
 
 SELECT *
 FROM result_recycle
-WHERE city = '杭州' AND project_name = '滨江·潮语鸣翠轩';
+WHERE city = N'杭州'
+  AND project_name = N'滨江·潮语鸣翠轩';
 
 UPDATE price_dict
 SET import_date = '2024-09-20'
