@@ -136,14 +136,13 @@ INNER JOIN (SELECT city,
               AND is_cross = 1
               AND is_abnormal = 1) b
 ON a.city = b.city AND a.project_name = b.project_name AND a.property_type = b.property_type
-WHERE a.data_month = '2024-08'
+WHERE a.data_month = '2024-09'
   AND a.is_cross = 1
 ORDER BY a.person_in_charge, a.price_diff_ratio DESC ;
 
 SELECT *
 FROM result_recycle
-WHERE city = N'杭州'
-  AND project_name = N'滨江·潮语鸣翠轩';
+WHERE data_dept = '住宅' AND FORMAT(import_date, 'yyyy-MM') = '2024-10';
 
 UPDATE price_dict
 SET import_date = '2024-09-20'
@@ -154,8 +153,6 @@ WHERE import_date = '2024-09-20';
 DELETE
 FROM result_recycle
 WHERE import_date = '2024-09-20';
-
-
 
 
 SELECT *

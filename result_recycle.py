@@ -77,7 +77,7 @@ class ResultRecycle:
         result_df = pd.DataFrame()
         for file_name in os.listdir(self.data_path):
             file_path = os.path.join(self.data_path, file_name)
-            data_df = pd.read_excel(file_path)
+            data_df = pd.read_excel(file_path, dtype={'newcode': 'str'})
             data_df['主力在售装修情况'] = data_df['主力在售装修情况'].str.strip()
             data_df['销售状态'] = data_df['销售状态'].astype('str')
             data_df['销售状态'] = data_df['销售状态'].apply(lambda x: x.strip())
@@ -170,7 +170,7 @@ class ResultRecycle:
 
             sql_stmt: str = f"""
             SELECT DISTINCT city_id, project_id, property_type 
-            FROM dbo.task_distribution
+            FROM task_distribution
             WHERE data_dept = '{data_dept}' AND data_month = '{data_month}' AND is_cross = 1
             """
             cross_projects_df: pd.DataFrame = pd.read_sql(text(sql_stmt), engine)
@@ -283,6 +283,68 @@ class ResultRecycle:
 
         return final_df
 
+    def get_recent_project_price(self, current_month: str) -> pd.DataFrame:
+        """
+        获取当前月份前面2个月的项目价格数据：城市、项目名称、物业类型、月份、采信价格
+        :return:
+        """
+        current_date: datetime.datetime = datetime.datetime.strptime(current_month, '%Y-%m')
+        one_month_ago: datetime.datetime | str = current_date - relativedelta(months=1)
+        tow_month_ago: datetime.datetime | str = current_date - relativedelta(months=2)
+        one_month_ago = one_month_ago.strftime('%Y-%m')
+        tow_month_ago = tow_month_ago.strftime('%Y-%m')
+        data_months: tuple = (one_month_ago, tow_month_ago)
+        data_dept: str = '住宅' if self.dept_flag == 1 else '指数'
+        sql = f"""
+        WITH RecentData AS (SELECT city,
+                                   project_name,
+                                   property_type,
+                                   data_month,
+                                   admitted_price,
+                                   ROW_NUMBER() OVER (PARTITION BY city, project_name,
+                                       property_type ORDER BY data_month DESC) AS rn
+                            FROM result_recycle
+                            WHERE data_dept = '{data_dept}'
+                              AND data_month IN {data_months}
+                              AND admitted_price IS NOT NULL),
+             FilteredProject AS (SELECT city,
+                                        project_name,
+                                        property_type
+                                 FROM RecentData
+                                 WHERE rn <= 2
+                                 GROUP BY city, project_name, property_type
+                                 HAVING COUNT(*) >= 1 -- 找出至少有最近2个月价格的项目
+             )
+        SELECT DISTINCT rd.city,
+                        rd.project_name,
+                        rd.property_type,
+                        rd.data_month,
+                        rd.admitted_price
+        FROM RecentData rd
+                 JOIN FilteredProject fp
+                      ON rd.city = fp.city
+                          AND rd.project_name = fp.project_name
+                          AND rd.property_type = fp.property_type
+        WHERE rd.rn <= 2
+        ORDER BY rd.city, rd.project_name, rd.property_type, rd.data_month DESC
+        """
+
+        db = DBOperation()
+        engine = db.get_engine(server='local')
+        df: pd.DataFrame = pd.read_sql(sql, engine)
+        pivot_df = df.pivot_table(
+            index=['city', 'project_name', 'property_type'],
+            columns='data_month',
+            values='admitted_price',
+            aggfunc='first'
+        ).reset_index()
+        pivot_df.columns = ['city', 'project_name', 'property_type', 'm-2_price', 'm-1_price']
+        pivot_df.sort_values(by=['city', 'project_name', 'property_type'],
+                             ascending=[True, True, True],
+                             inplace=True)
+
+        return pivot_df
+
     def result_recycle(self, data_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
         cross_projects_df: pd.DataFrame = data_df[data_df['是否交叉调研'] == 1]
         noncross_projects_df: pd.DataFrame = data_df[data_df['是否交叉调研'] == 0]
@@ -339,7 +401,32 @@ class ResultRecycle:
         # 剔除实际成交价的城市（若存在）
         price_dict_df = price_dict_df[~price_dict_df['城市'].isin(real_deal_price_cities)]
         # 单个项目剔除：广州——华润置地·公园上城
-        price_dict_df = price_dict_df[~((price_dict_df['城市'] == '广州') & (price_dict_df['总期名称'] == '华润置地·公园上城'))]
+        price_dict_df = price_dict_df[~((price_dict_df['城市'] == '广州')
+                                        & (price_dict_df['总期名称'] == '华润置地·公园上城'))]
+
+        # 剔除近3个月价格变化异常的项目
+        current_month = price_dict_df.loc[0, '适用时间']
+        recent_price_df: pd.DataFrame = self.get_recent_project_price(current_month)
+        price_dict_df = price_dict_df.merge(recent_price_df,
+                                            how='left',
+                                            left_on=['城市', '总期名称', '细分物业类型'],
+                                            right_on=['city', 'project_name', 'property_type'])
+        price_dict_df['变化率1'] = price_dict_df.apply(
+            lambda x: round(((x['采信价格'] - x['m-2_price']) / x['m-2_price']) * 100, 2)
+            if pd.notnull(x['m-2_price']) else None, axis=1)
+        price_dict_df['变化率2'] = price_dict_df.apply(
+            lambda x: round(((x['采信价格'] - x['m-1_price']) / x['m-1_price']) * 100, 2)
+            if pd.notnull(x['m-1_price']) else None, axis=1)
+        price_dict_df.drop(columns=['city', 'project_name', 'property_type'], axis=1, inplace=True)
+        price_dict_df['变化率1（绝对值）'] = price_dict_df['变化率1'].apply(lambda x: abs(x) if x is not None else None)
+        price_dict_df['变化率2（绝对值）'] = price_dict_df['变化率2'].apply(lambda x: abs(x) if x is not None else None)
+        price_dict_df.to_excel(os.path.join(self.out_path, f'{data_date}_近3月价格变化情况.xlsx'), index=False)
+
+        # 剔除月上月相比，价格变化超过 10% 的项目
+        price_dict_df.drop(price_dict_df[(price_dict_df['变化率2（绝对值）'].notnull())
+                                         & (price_dict_df['变化率2（绝对值）'] > 10)].index, inplace=True)
+        price_dict_df.drop(columns=['m-2_price', 'm-1_price', '变化率1', '变化率2',
+                                    '变化率1（绝对值）', '变化率2（绝对值）'], axis=1, inplace=True)
         price_dict_df.to_excel(os.path.join(self.out_path, f'{data_date}_价格字典-上传.xlsx'), index=False)
 
         # 输出总体核验数据

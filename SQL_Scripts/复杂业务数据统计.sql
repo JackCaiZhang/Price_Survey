@@ -4,9 +4,11 @@ WITH RecentData AS (SELECT city,
                            property_type,
                            data_month,
                            admitted_price,
-                           ROW_NUMBER() OVER (PARTITION BY city, project_name, property_type ORDER BY data_month DESC) AS rn
+                           ROW_NUMBER() OVER (PARTITION BY city, project_name,
+                               property_type ORDER BY data_month DESC) AS rn
                     FROM result_recycle
                     WHERE data_dept = N'住宅'
+                      AND data_month IN ('2024-09', '2024-08')
                       AND admitted_price IS NOT NULL),
      FilteredProject AS (SELECT city,
                                 project_name,
@@ -26,5 +28,34 @@ FROM RecentData rd
               ON rd.city = fp.city
                   AND rd.project_name = fp.project_name
                   AND rd.property_type = fp.property_type
-WHERE rn <= 3
+WHERE rd.rn <= 3 AND rd.city = N'邯郸'
 ORDER BY rd.city, rd.project_name, rd.property_type, rd.data_month DESC;
+
+
+-- 交叉调研项目价格异常统计
+SELECT DISTINCT a.unique_field,
+                a.city,
+                ISNULL(a.project_name, a.newhouse_name) new_project_name,
+                a.data_month,
+                a.property_type,
+                a.decoration_of_main_sale,
+                a.decoration_price,
+                a.rough_price,
+                a.admitted_price,
+                a.price_difference,
+                a.price_diff_ratio,
+                a.sale_status,
+                a.person_in_charge,
+                a.data_dept
+FROM result_recycle a
+INNER JOIN (SELECT city,
+                   ISNULL(project_name, newhouse_name) project_name,
+                   property_type
+            FROM result_recycle
+            WHERE data_month = '2024-09'
+              AND is_cross = 1
+              AND is_abnormal = 1) b
+ON a.city = b.city AND a.project_name = b.project_name AND a.property_type = b.property_type
+WHERE a.data_month = '2024-09'
+  AND a.is_cross = 1
+ORDER BY a.city, new_project_name, a.person_in_charge, a.price_diff_ratio DESC ;
