@@ -48,7 +48,7 @@ def price_processing(group):
     return group
 
 
-class ResultRecycle:
+class ResultRecycler:
     recycle_std_columns = ['城市ID', '城市', '月份', '项目id', '项目名称', '项目别名', 'newcode', '物业类型',
                            '城市排名', '精装价格(元/平方米)', '毛坯价格(元/平方米)', '主力在售装修情况',
                            '当月价格较上月变动（%）', '优惠情况', '销售状态', '备注', '负责人', '回收日期',
@@ -498,10 +498,3 @@ class ResultRecycle:
         else:
             raise ValueError('输入指令不正确！')
 
-
-# if __name__ == '__main__':
-#     data_path = 'recycle_data/20240805'
-#     out_path = 'result_recycle'
-#
-#     rr = ResultRecycle(data_path=data_path, out_path=out_path)
-#     rr.run()

@@ -5,39 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb544721-e8ca-4e85-a758-5af7a2681521" name="Changes" comment="2024.10.16-10.17：住宅第一批任务回收+指数任务分发">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/10月(1)调研任务-苏静.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/10月16日收回陈晨.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/10月1次陈岩调研项目.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/2024-10-16调研任务-住宅_秦琳.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/2024-10调研任务-住宅_李瑾如(1).xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recycle_data/20241016/2024-10调研任务-住宅_陈瑞(1).xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_价格字典-上传.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_原始回收结果汇总.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-交叉调研项目.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-所有项目.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-非交叉调研项目.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_总体核验数据.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_近3月价格变化情况.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/10月21日下午5点返回.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_李瑾如.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_秦琳.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_苏静.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_陈岩.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_陈晨.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/指数部门/2024-10调研任务-指数_陈瑞.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/price-survey.py" beforeDir="false" afterPath="$PROJECT_DIR$/price-survey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-08_原始回收结果汇总.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-08_原始回收结果汇总.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-08_回收结果-所有项目.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-08_回收结果-所有项目.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅_苏静.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅_苏静.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,8 +149,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.price-survey" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.price-survey" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +177,10 @@
       <workItem from="1729127738464" duration="9778000" />
       <workItem from="1729170323773" duration="1927000" />
       <workItem from="1729172281042" duration="575000" />
-      <workItem from="1729172873578" duration="2091000" />
+      <workItem from="1729172873578" duration="2958000" />
+      <workItem from="1729214486201" duration="22000" />
+      <workItem from="1729320855579" duration="564000" />
+      <workItem from="1729321433837" duration="148000" />
     </task>
     <task id="LOCAL-00001" summary="初始化">
       <option name="closed" value="true" />
@@ -259,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729174961140</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="2024.10.16-10.17：住宅第一批任务回收+指数任务分发">
+      <option name="closed" value="true" />
+      <created>1729175007065</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1729175007065</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
