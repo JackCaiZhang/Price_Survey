@@ -16,15 +16,15 @@ def task_executor(params_list: list[dict]) -> None:
                                     请输入指令
                                     """)).lower()
     if message == 'd':
-        task_id: int = int(input(dedent(f"""
-                                            任务分发执行：
-                                                1：任务分发（住宅部门）
-                                                2：任务分发（指数部门）
-                                            请输入任务编号
-                                            """)))
+        task_id: str = input(dedent(f"""
+                                        任务分发执行：
+                                            1：任务分发（住宅部门）
+                                            2：任务分发（指数部门）
+                                        请输入任务编号
+                                        """))
         dept_flag: int | None = None
-        if task_id in [1, 2]:
-            dept_flag = task_id
+        if task_id in ['1', '2']:
+            dept_flag = int(task_id)
         else:
             print('指令错误，请重新运行程序！')
             sys.exit()
@@ -38,15 +38,15 @@ def task_executor(params_list: list[dict]) -> None:
                                       recycle_interval_days=task_dist_params['recycle_interval_days'])
         distributor.run()
     elif message == 'r':
-        task_id: int = int(input(dedent(f"""
-                                            任务回收执行：
-                                                1：任务回收（住宅部门）
-                                                2：任务回收（指数部门）
-                                            请输入任务编号
-                                            """)))
+        task_id: str = input(dedent(f"""
+                                        任务回收执行：
+                                            1：任务回收（住宅部门）
+                                            2：任务回收（指数部门）
+                                        请输入任务编号
+                                        """))
         dept_flag: int | None = None
-        if task_id in [1, 2]:
-            dept_flag = task_id
+        if task_id in ['1', '2']:
+            dept_flag = int(task_id)
         else:
             print('指令错误，请重新运行程序！')
             sys.exit()
