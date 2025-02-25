@@ -101,9 +101,9 @@ class TaskDistributor:
             property_name_dict: dict = newhouse_match_df.set_index('newcode')['property_name'].to_dict()
             property_id_dict: dict = newhouse_match_df.set_index('newcode')['property_id'].to_dict()
             city_id_dict: dict = newhouse_match_df.set_index('city_name')['city_id'].to_dict()
-            data_df['城市ID'] = data_df.apply(lambda row: city_id_dict[row['城市']], axis=1)
-            data_df['项目名称'] = data_df.apply(lambda row: property_name_dict.get(row['newcode']), axis=1)
-            data_df['项目id'] = data_df.apply(lambda row: property_id_dict.get(row['newcode']), axis=1)
+            data_df['城市ID'] = data_df.apply(lambda row: city_id_dict.get(row['城市'], '无'), axis=1)
+            data_df['项目名称'] = data_df.apply(lambda row: property_name_dict.get(row['newcode'], None), axis=1)
+            data_df['项目id'] = data_df.apply(lambda row: property_id_dict.get(row['newcode'], None), axis=1)
             result_df = data_df.copy()
 
         # 城市排名处理
@@ -299,7 +299,7 @@ class TaskDistributor:
                     batch_end += remainder
                 tasks_df.loc[i * batch_size:batch_end, '回收日期'] = dates[i]
         else:
-            tasks_df.loc[:, '回收日期'] = self.start_date + timedelta(days=3)
+            tasks_df.loc[:, '回收日期'] = self.start_date + timedelta(days=self.recycle_interval_days)
 
         return tasks_df
 
@@ -320,7 +320,7 @@ class TaskDistributor:
             task_date = '-'.join([str(task_date.year), str(task_date.month).zfill(2)])
 
             print('将分发任务保存到本地：')
-            tasks_df_copy: pd.DataFrame = tasks_df.copy()
+            tasks_df_copy: pd.DataFrame = deepcopy(tasks_df)
             tasks_df_copy['月份'] = task_date  # 将月份修改为任务分发月份
             tasks_df_copy['项目别名'] = tasks_df_copy['项目别名'].apply(
                 lambda x: str(x).split('/')[0] if '/' in str(x) else x)
@@ -341,7 +341,7 @@ class TaskDistributor:
         elif self.dept_flag == 2:
             task_date = data_date
             print('将分发任务保存到本地：')
-            tasks_df_copy: pd.DataFrame = tasks_df.copy()
+            tasks_df_copy: pd.DataFrame = deepcopy(tasks_df)
             tasks_df_copy['月份'] = task_date  # 将月份修改为任务分发月份
             tasks_df_copy = tasks_df_copy.sort_values(by=['回收日期', '城市排名', '项目id', '物业类型'],
                                                       ascending=[True, True, True, True])

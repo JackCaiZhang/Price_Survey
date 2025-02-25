@@ -3,6 +3,7 @@ import os
 import sys
 import warnings
 
+import numpy as np
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql import text
@@ -95,9 +96,10 @@ class ResultRecycler:
         for file_name in os.listdir(self.data_path):
             file_path = os.path.join(self.data_path, file_name)
             df = pd.read_excel(file_path)
-            df['主力在售装修情况'] = df['主力在售装修情况'].str.strip()
+            df['主力在售装修情况'] = df['主力在售装修情况'].astype('str')
             df['销售状态'] = df['销售状态'].astype('str')
             df['销售状态'] = df['销售状态'].apply(lambda x: x.strip())
+            df['主力在售装修情况'] = df['主力在售装修情况'].apply(lambda x: x.strip())
             print("=" * 34, f"{df.loc[0, '负责人']}-结果概览", "=" * 34)
             print(f"主力在售装修情况：{'、'.join(str(item) for item in df['主力在售装修情况'].unique().tolist())}")
             decoration_min_price = df['精装价格(元/平方米)'].min()
@@ -185,8 +187,9 @@ class ResultRecycler:
             # 列顺序重新排列
             result_df: pd.DataFrame = pd.DataFrame({col: data_df[col] for col in self.recycle_std_columns})
             if not no_admitted_price_df.empty:
-                print('前面批次存在未处理的交叉调研项目！')
                 no_admitted_price_df.columns = self.recycle_std_columns
+                out_columns = ['城市', '月份', '项目名称', '物业类型', '负责人']
+                print(f'前面批次存在未处理的交叉调研项目: \n{no_admitted_price_df[out_columns].head()}')
                 result_df = pd.concat([result_df, no_admitted_price_df],
                                       ignore_index=True).reset_index(drop=True)
 
@@ -202,8 +205,7 @@ class ResultRecycler:
                 cross_projects_df2['交叉调研项目是否同一批次回收'] == 0]
             if not cross_projets_returned_nosimul_df.empty:
                 print('存在以下不在同一批次回收的交叉调研项目，本次仅入库原始信息，不做任何处理：')
-                print(
-                    cross_projets_returned_nosimul_df[['城市', '项目名称', '物业类型', '负责人']].drop_duplicates())
+                print(cross_projets_returned_nosimul_df[['城市', '项目名称', '物业类型', '负责人']].drop_duplicates())
                 del cross_projets_returned_nosimul_df['交叉调研项目是否同一批次回收']
                 cross_projets_returned_nosimul_df.columns = self.recycle_db_columns
                 # 删除数据库当月交叉调研项目中有价格但采信价格为空的项目
@@ -359,7 +361,7 @@ class ResultRecycler:
 
         # 再处理交叉调研项目
         cross_projects_df['调研价格'] = cross_projects_df.apply(
-            lambda x: x['精装价格(元/平方米)'] if x['主力在售装修情况'] == '精装' else x['毛坯价格(元/平方米)'], axis=1)
+            lambda x: x['精装价格(元/平方米)'] if pd.notnull(x['精装价格(元/平方米)']) else x['毛坯价格(元/平方米)'], axis=1)
         cross_projects_df.loc[cross_projects_df['调研价格'].notna(), ['价格差异', '价格差异百分比', '是否异常']] = [0.00, 0.00, 0]
         cross_projects_noprice_df: pd.DataFrame = cross_projects_df[cross_projects_df['调研价格'].isna()].drop(columns=['调研价格'])
         cross_projects_withprice_df: pd.DataFrame = cross_projects_df[~cross_projects_df['调研价格'].isna()]
@@ -405,6 +407,7 @@ class ResultRecycler:
                                         & (price_dict_df['总期名称'] == '华润置地·公园上城'))]
 
         # 剔除近3个月价格变化异常的项目
+        price_dict_df.reset_index(drop=True, inplace=True)
         current_month = price_dict_df.loc[0, '适用时间']
         recent_price_df: pd.DataFrame = self.get_recent_project_price(current_month)
         price_dict_df = price_dict_df.merge(recent_price_df,
@@ -420,9 +423,20 @@ class ResultRecycler:
         price_dict_df.drop(columns=['city', 'project_name', 'property_type'], axis=1, inplace=True)
         price_dict_df['变化率1（绝对值）'] = price_dict_df['变化率1'].apply(lambda x: abs(x) if x is not None else None)
         price_dict_df['变化率2（绝对值）'] = price_dict_df['变化率2'].apply(lambda x: abs(x) if x is not None else None)
+        engine = self.dbo.get_engine(server='local')
+        price_change_log_df: pd.DataFrame = price_dict_df.copy()
+        price_change_log_df['导入日期'] = datetime.date.today().strftime('%Y-%m-%d')
+        price_change_log_columns = ['city', 'city_id', 'sProperty_name', 'sProperty_id', 'app_date',
+                                    'property_type_new', 'admitted_price', 'price_source', 'modify_type', 'comment',
+                                    'presale_licence', 'build_name', 'area_interval', 'dict_type', 'm_2_price',
+                                    'm_1_price', 'm_2_price_change_ratio', 'm_1_price_change_ratio',
+                                    'm_2_price_change_ratio_abs', 'm_1_price_change_ratio_abs', 'import_date']
+        price_change_log_df.columns = price_change_log_columns
+        price_change_log_df.to_sql(name='price_change_log', con=engine, if_exists='append', index=False)
+        print('近3月价格变化情况已成功入库！')
         price_dict_df.to_excel(os.path.join(self.out_path, f'{data_date}_近3月价格变化情况.xlsx'), index=False)
 
-        # 剔除月上月相比，价格变化超过 10% 的项目
+        # 剔除与上月相比，价格变化超过 10% 的项目
         price_dict_df.drop(price_dict_df[(price_dict_df['变化率2（绝对值）'].notnull())
                                          & (price_dict_df['变化率2（绝对值）'] > 10)].index, inplace=True)
         price_dict_df.drop(columns=['m-2_price', 'm-1_price', '变化率1', '变化率2',
@@ -469,6 +483,24 @@ class ResultRecycler:
 
         print('价格字典入库中...')
         try:
+            # 删除与数据库价格字典表中重复的行
+            price_dict_df['unique_id'] = price_dict_df.apply(
+                lambda x: ''.join([x['city_id'], x['sProperty_id'],
+                                   x['property_type_new'], x['app_date']]), axis=1)
+            file_unique_id = set(price_dict_df['unique_id'].unique().tolist())
+            price_dict_df.reset_index(drop=True, inplace=True)
+            app_date = price_dict_df.loc[0, 'app_date']
+            sql_stmt = f"""
+                        SELECT CONCAT(city_id, sProperty_id, property_type_new, app_date) unique_id
+                        FROM price_dict
+                        WHERE app_date = '{app_date}';
+            """
+            db_unique_id = set(pd.read_sql(text(sql_stmt), engine)['unique_id'].unique().tolist())
+            db_existing_id = file_unique_id.intersection(db_unique_id)
+            price_dict_df = price_dict_df[~price_dict_df['unique_id'].isin(db_existing_id)]
+            if db_existing_id:
+                print(f'数据库已存在以下数据：{db_existing_id}；已剔除！')
+            del price_dict_df['unique_id']
             price_dict_df.to_sql(name='price_dict', con=engine, if_exists='append', index=False)
             print('价格字典入库成功！')
         except Exception as e:

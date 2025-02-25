@@ -148,16 +148,17 @@ UPDATE price_dict
 SET import_date = '2024-09-20'
 WHERE import_date = '2024-09-23';
 
-SELECT * FROM price_dict
-WHERE import_date = '2024-09-20';
 DELETE
 FROM result_recycle
-WHERE import_date = '2024-09-20';
+WHERE import_date = '2024-11-05';
 
+DELETE
+FROM price_dict
+WHERE import_date = '2024-11-05';
 
 SELECT *
 FROM price_dict
-WHERE app_date = '2024-09';
+WHERE city_id = 'ec224a51-6810-4885-8852-caaa';
 
 DELETE
 FROM price_dict

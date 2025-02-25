@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb544721-e8ca-4e85-a758-5af7a2681521" name="Changes" comment="代码优化">
+      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/11月价格.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/1月21日中午12点前返回.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/2月21日中午12点前返回.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/价格202412.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_Scripts/调研工作量统计.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/调研工作量统计.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_recycle.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_原始回收结果汇总.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_原始回收结果汇总.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-交叉调研项目.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-交叉调研项目.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-所有项目.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-所有项目.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_总体核验数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_总体核验数据.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-09调研任务-住宅_李瑾如.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅_李瑾如.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_distributor.py" beforeDir="false" afterPath="$PROJECT_DIR$/task_distributor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/城市排名.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/城市排名.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,29 +74,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "Python.price-survey.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.price-survey.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Excel (xlsx)&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/workspace/pythonProject/Price_Survey/task_distribution/原始调研项目数据&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;
     ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\workspace\pythonProject\Price_Survey\task_distribution\原始调研项目数据" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Price_Survey" />
@@ -150,8 +176,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.price-survey" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.price-survey" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +208,56 @@
       <workItem from="1729214486201" duration="22000" />
       <workItem from="1729320855579" duration="564000" />
       <workItem from="1729321433837" duration="148000" />
-      <workItem from="1729321591047" duration="3601000" />
+      <workItem from="1729321591047" duration="6052000" />
+      <workItem from="1729501755820" duration="4017000" />
+      <workItem from="1729565789928" duration="4638000" />
+      <workItem from="1729666395321" duration="5668000" />
+      <workItem from="1729733636536" duration="3796000" />
+      <workItem from="1729760326189" duration="987000" />
+      <workItem from="1730780684866" duration="7756000" />
+      <workItem from="1730863437591" duration="4385000" />
+      <workItem from="1731488018185" duration="2388000" />
+      <workItem from="1731578318514" duration="1874000" />
+      <workItem from="1731633954792" duration="14000" />
+      <workItem from="1731893499315" duration="4056000" />
+      <workItem from="1731999335562" duration="12582000" />
+      <workItem from="1732167372359" duration="49000" />
+      <workItem from="1732880340214" duration="1904000" />
+      <workItem from="1733128501093" duration="1898000" />
+      <workItem from="1733226067318" duration="340000" />
+      <workItem from="1733236245729" duration="606000" />
+      <workItem from="1733402090675" duration="892000" />
+      <workItem from="1733450604834" duration="3689000" />
+      <workItem from="1733494410436" duration="125000" />
+      <workItem from="1734093949939" duration="1720000" />
+      <workItem from="1734312740842" duration="437000" />
+      <workItem from="1734344523268" duration="1015000" />
+      <workItem from="1734431124431" duration="1968000" />
+      <workItem from="1734522631340" duration="44000" />
+      <workItem from="1734538634742" duration="15000" />
+      <workItem from="1734601161355" duration="5553000" />
+      <workItem from="1734621870026" duration="12000" />
+      <workItem from="1734935789127" duration="2063000" />
+      <workItem from="1735264416764" duration="4189000" />
+      <workItem from="1735370352742" duration="317000" />
+      <workItem from="1735555438143" duration="96000" />
+      <workItem from="1735609884641" duration="989000" />
+      <workItem from="1736147486101" duration="862000" />
+      <workItem from="1736170389001" duration="780000" />
+      <workItem from="1736749656982" duration="884000" />
+      <workItem from="1737139049864" duration="2656000" />
+      <workItem from="1737214653603" duration="5160000" />
+      <workItem from="1737297279136" duration="1008000" />
+      <workItem from="1737909372175" duration="1694000" />
+      <workItem from="1738916083868" duration="3523000" />
+      <workItem from="1739530709276" duration="434000" />
+      <workItem from="1739757914265" duration="65000" />
+      <workItem from="1739782587536" duration="3913000" />
+      <workItem from="1739791758385" duration="552000" />
+      <workItem from="1739841626268" duration="24000" />
+      <workItem from="1740122409657" duration="1427000" />
+      <workItem from="1740393194234" duration="223000" />
+      <workItem from="1740465162990" duration="19000" />
     </task>
     <task id="LOCAL-00001" summary="初始化">
       <option name="closed" value="true" />
@@ -256,11 +331,30 @@
       <option name="project" value="LOCAL" />
       <updated>1729324583182</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="代码优化">
+      <option name="closed" value="true" />
+      <created>1729325462051</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1729325462051</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初始化" />
@@ -273,7 +367,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Price_Survey$price_survey.coverage" NAME="price-survey Coverage Results" MODIFIED="1729324413119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Price_Survey$test.coverage" NAME="test Coverage Results" MODIFIED="1729081144920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Price_Survey$main.coverage" NAME="main Coverage Results" MODIFIED="1729324431812" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Price_Survey$test.coverage" NAME="test Coverage Results" MODIFIED="1732005746562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Price_Survey$main.coverage" NAME="main Coverage Results" MODIFIED="1740126875263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

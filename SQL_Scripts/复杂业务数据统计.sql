@@ -8,7 +8,7 @@ WITH RecentData AS (SELECT city,
                                property_type ORDER BY data_month DESC) AS rn
                     FROM result_recycle
                     WHERE data_dept = N'住宅'
-                      AND data_month IN ('2024-09', '2024-08')
+                      AND data_month <> '2024-10'
                       AND admitted_price IS NOT NULL),
      FilteredProject AS (SELECT city,
                                 project_name,
@@ -17,19 +17,28 @@ WITH RecentData AS (SELECT city,
                          WHERE rn <= 3
                          GROUP BY city, project_name, property_type
                          HAVING COUNT(*) >= 2 -- 找出至少有最近2个月价格的项目
-     )
-SELECT DISTINCT rd.city,
-                rd.project_name,
-                rd.property_type,
-                rd.data_month,
-                rd.admitted_price
-FROM RecentData rd
-         JOIN FilteredProject fp
-              ON rd.city = fp.city
-                  AND rd.project_name = fp.project_name
-                  AND rd.property_type = fp.property_type
-WHERE rd.rn <= 3 AND rd.city = N'邯郸'
-ORDER BY rd.city, rd.project_name, rd.property_type, rd.data_month DESC;
+     ),
+     FinalResult AS (SELECT DISTINCT rd.city,
+                                     rd.project_name,
+                                     rd.property_type,
+                                     rd.data_month,
+                                     rd.admitted_price,
+                                     MAX(rd.data_month) OVER (PARTITION BY rd.city, rd.project_name,
+                                         rd.property_type) max_month
+                     FROM RecentData rd
+                              JOIN FilteredProject fp
+                                   ON rd.city = fp.city
+                                       AND rd.project_name = fp.project_name
+                                       AND rd.property_type = fp.property_type
+                     WHERE rd.rn <= 3)
+SELECT city,
+       project_name,
+       property_type,
+       data_month,
+       admitted_price
+FROM FinalResult
+WHERE max_month = '2024-09'
+ORDER BY city, project_name, property_type, data_month DESC;
 
 
 -- 交叉调研项目价格异常统计
@@ -57,5 +66,6 @@ INNER JOIN (SELECT city,
               AND is_abnormal = 1) b
 ON a.city = b.city AND a.project_name = b.project_name AND a.property_type = b.property_type
 WHERE a.data_month = '2024-09'
+  AND a.data_dept = N'住宅'
   AND a.is_cross = 1
 ORDER BY a.city, new_project_name, a.person_in_charge, a.price_diff_ratio DESC ;
