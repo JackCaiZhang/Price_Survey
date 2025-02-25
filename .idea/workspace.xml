@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb544721-e8ca-4e85-a758-5af7a2681521" name="Changes" comment="代码优化">
-      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/11月价格.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/1月21日中午12点前返回.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/2月21日中午12点前返回.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task_distribution/原始调研项目数据/价格202412.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/复杂业务数据统计.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/表创建.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_Scripts/调研工作量统计.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Scripts/调研工作量统计.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_原始回收结果汇总.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_原始回收结果汇总.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-交叉调研项目.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-交叉调研项目.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-所有项目.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_回收结果-所有项目.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_recycle/2024-10-17_总体核验数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/result_recycle/2024-10-17_总体核验数据.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-09调研任务-住宅_李瑾如.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distribution/住宅部门/2024-10调研任务-住宅_李瑾如.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distributor.py" beforeDir="false" afterPath="$PROJECT_DIR$/task_distributor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/城市排名.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/城市排名.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,12 +41,12 @@
     &quot;assignee&quot;: &quot;JackCaiZhang&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/JackCaiZhang/Price_Survey.git&quot;,
-    &quot;accountId&quot;: &quot;a3ee50d3-2eed-42a4-b736-285e53140d4c&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:JackCaiZhang/Price_Survey.git",
+    "accountId": "a3ee50d3-2eed-42a4-b736-285e53140d4c"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -258,6 +240,7 @@
       <workItem from="1740122409657" duration="1427000" />
       <workItem from="1740393194234" duration="223000" />
       <workItem from="1740465162990" duration="19000" />
+      <workItem from="1740480757079" duration="868000" />
     </task>
     <task id="LOCAL-00001" summary="初始化">
       <option name="closed" value="true" />

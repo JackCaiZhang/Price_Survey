@@ -70,7 +70,7 @@ if __name__ == '__main__':
         'recycle_interval_days': 3,                                             # 两个批次回收间隔天数，可选（默认7天）
     }
     recycle_params_dict: dict = {
-        'data_path': r'recycle_data/20250221',  # 回收结果路径
+        'data_path': r'recycle_data/20250222',  # 回收结果路径
         'out_path': r'result_recycle'           # 回收结果保存目录
     }
 
