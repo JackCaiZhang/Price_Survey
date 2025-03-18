@@ -162,24 +162,26 @@ class TaskDistributor:
         交叉调研处理：返回总调研项目=原始+交叉
         """
         data_df = self.data_preprocessing()
-        num_projects = len(data_df)
-        # 交叉调研数量只取整数部分
-        cross_num = math.floor(self.cross_percentage * num_projects)
-        cross_projects = data_df.sample(n=cross_num)    # 根据交叉调研数量进行采样
-        combined_projects = pd.concat([data_df, cross_projects], ignore_index=True)
 
         if self.dept_flag == 1:
+            num_projects = len(data_df)
+            # 交叉调研数量只取整数部分
+            cross_num = math.floor(self.cross_percentage * num_projects)
+            cross_projects = data_df.sample(n=cross_num)  # 根据交叉调研数量进行采样
+            combined_projects = pd.concat([data_df, cross_projects], ignore_index=True)
             # 交叉调研项目标记，重复项目都是交叉调研
             combined_projects['是否交叉调研'] = combined_projects.duplicated(subset=['城市ID', '项目id', '物业类型'],
                                                                              keep=False).astype(int)
-            # 添加回收日期：先根据“是否交叉调研”排序，然后再添加分批回收日期，这样做可以让交叉调研项目尽可能在同一个批次回收
+            # 先根据“是否交叉调研”排序，然后再添加分批回收日期，这样做可以让交叉调研项目尽可能在同一个批次回收
             combined_projects = combined_projects.sort_values(by=['是否交叉调研', '城市排名', '项目id', '物业类型'],
                                                               ascending=[False, True, True, True])
         else:
+            self.cross_percentage = 0
+            combined_projects = data_df
             # 交叉调研项目标记，重复项目都是交叉调研
             combined_projects['是否交叉调研'] = combined_projects.duplicated(subset=['城市ID', 'newcode', '物业类型'],
                                                                              keep=False).astype(int)
-            # 添加回收日期：先根据“是否交叉调研”排序，然后再添加分批回收日期，这样做可以让交叉调研项目尽可能在同一个批次回收
+            # 先根据“是否交叉调研”排序，然后再添加分批回收日期，这样做可以让交叉调研项目尽可能在同一个批次回收
             combined_projects = combined_projects.sort_values(by=['是否交叉调研', '城市排名', 'newcode', '物业类型'],
                                                               ascending=[False, True, True, True])
 
