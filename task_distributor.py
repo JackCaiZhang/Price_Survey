@@ -89,6 +89,7 @@ class TaskDistributor:
             result_df['项目别名ID'] = result_df['项目别名ID'].apply(lambda x: None if x == 'nan' else x)
             result_df['项目别名'] = result_df['项目别名'].apply(lambda x: None if x == 'nan' else x)
             result_df['newcode'] = result_df['newcode'].apply(lambda x: None if x == 'nan' else x)
+            # del result_df['均价']
         else:
             data_df: pd.DataFrame = pd.read_excel(self.file_path, dtype={'newcode': 'str'})
             engine = self.dbo.get_engine(server='house_test')
@@ -114,7 +115,34 @@ class TaskDistributor:
         # 列标准化
         result_df = self.data_format(result_df)
 
-        return result_df
+        # 合并物业类型、物业类型套数（如果一个总期存在多个物业类型）
+        out_cols = result_df.columns.tolist()
+        if self.dept_flag == 1:
+            group_cols = [col for col in out_cols if col not in ['物业类型', '物业类型套数']]
+
+            # 填充缺失值以避免分组问题
+            result_df[group_cols] = result_df[group_cols].fillna('缺失值')
+
+            agg_dict = {
+                '物业类型套数': lambda x: '、'.join(map(str, x)) if len(x) > 0 else '无',
+                '物业类型': lambda x: '、'.join(x) if len(x) > 0 else '无'
+            }
+        else:
+            group_cols = [col for col in out_cols if col not in ['物业类型']]
+
+            # 填充缺失值以避免分组问题
+            result_df[group_cols] = result_df[group_cols].fillna('缺失值')
+
+            agg_dict = {
+                '物业类型': lambda x: '、'.join(x) if len(x) > 0 else '无'
+            }
+
+        final_df = result_df.groupby(group_cols, as_index=False).agg(agg_dict)
+        final_df = final_df[out_cols]
+        # 将“缺失值”替换为None
+        final_df = final_df.replace('缺失值', None)
+
+        return final_df
 
     def data_format(self, df: pd.DataFrame) -> pd.DataFrame:
         if self.dept_flag == 1:
@@ -206,7 +234,7 @@ class TaskDistributor:
 
         # 开始给每个人分配任务
         print('开始执行任务分发：')
-        print(f'任务分发前——调研总量：{total_tasks}；'
+        print(f'任务分发前——调研总量（按项目）：{total_tasks}；'
               f'其中，非交叉调研量：{noncross_df[noncross_df["是否交叉调研"] == 0].shape[0]}；'
               f'交叉调研量（比例：{self.cross_percentage}）：{cross_df[cross_df["是否交叉调研"] == 1].shape[0]}')
         print(f'每个人应分配任务数量：{task_num_dic}')
@@ -260,12 +288,15 @@ class TaskDistributor:
         whole_task_df = pd.DataFrame(columns=self.distribut_std_columns, data=None)
         for person, tasks in tasks_by_person.items():
             tasks_df = pd.DataFrame(tasks, columns=self.distribut_std_columns)
+            tasks_df['物业类型'] = tasks_df['物业类型'].str.split('、')
+            tasks_df['物业类型套数'] = tasks_df['物业类型套数'].str.split('、')
+            tasks_df = tasks_df.explode(['物业类型', '物业类型套数'], ignore_index=True)
             tasks_df.loc[:, '负责人'] = person
             whole_task_df = pd.concat((whole_task_df, tasks_df), ignore_index=True)
         whole_task_df.reset_index(drop=True, inplace=True)
 
         print('任务分发完成！')
-        print(f"分发完成后——调研总量：{whole_task_df.shape[0]}；"
+        print(f"分发完成后——调研总量（按物业类型）：{whole_task_df.shape[0]}；"
               f"非交叉调研量：{len(whole_task_df[whole_task_df['是否交叉调研'] == 0])}；"
               f"交叉调研总量：{len(whole_task_df[whole_task_df['是否交叉调研'] == 1])}")
 
@@ -314,6 +345,7 @@ class TaskDistributor:
                                      '优惠情况', '销售状态', '备注', '负责人', '回收日期', '调研方式', '城市排名']
         tasks_df['任务分发时间'] = datetime.date.today()
         # 计算任务分发日期
+        tasks_df = tasks_df.reset_index(drop=True)
         data_date: str = tasks_df.loc[0, '月份']
         if self.dept_flag == 1:
             task_date: [datetime.date | str] = datetime.date(year=int(data_date.split('-')[0]),

@@ -61,16 +61,16 @@ def task_executor(params_list: list[dict]) -> None:
 
 if __name__ == '__main__':
     distribut_params_dict: dict = {
-        'file_path': r"task_distribution/原始调研项目数据/3月21日中午12点前返回.xlsx",  # 原始调研任务数据
+        'file_path': r"task_distribution/原始调研项目数据/3月价格调研数据20250407.xlsx",  # 原始调研任务数据
         'people': ['陈岩', '苏静', '陈晨', '陈瑞'],                               # 调研人员, '秦琳', '李雨涵'
         'proportions': [0.26, 0.26, 0.26, 0.22],                                # 调研比例（可按能力分配）
-        'cross_percentage': 0.4,                                               # 交叉调研比例
-        'start_date': pd.to_datetime('2025-03-18'),                             # 回收起始日期
+        'cross_percentage': 0.1,                                               # 交叉调研比例
+        'start_date': pd.to_datetime('2025-04-09'),                             # 回收起始日期
         'output_dir': r'task_distribution',                                     # 任务分发结果保存目录
-        'recycle_interval_days': 3,                                             # 两个批次回收间隔天数，可选（默认7天）
+        'recycle_interval_days': 5,                                             # 两个批次回收间隔天数，可选（默认7天）
     }
     recycle_params_dict: dict = {
-        'data_path': r'recycle_data/20250317',  # 回收结果路径
+        'data_path': r'recycle_data/20250321',  # 回收结果路径
         'out_path': r'result_recycle'           # 回收结果保存目录
     }
 

@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb544721-e8ca-4e85-a758-5af7a2681521" name="Changes" comment="调研结果回收：住宅2025年2月第3批次">
+    <list default="true" id="fb544721-e8ca-4e85-a758-5af7a2681521" name="Changes" comment="任务分发及回收">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_distributor.py" beforeDir="false" afterPath="$PROJECT_DIR$/task_distributor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +245,10 @@
       <workItem from="1741137537865" duration="37000" />
       <workItem from="1741161470164" duration="3207000" />
       <workItem from="1741941869583" duration="929000" />
-      <workItem from="1742261750614" duration="2212000" />
+      <workItem from="1742261750614" duration="2820000" />
+      <workItem from="1743477446094" duration="3388000" />
+      <workItem from="1743557642859" duration="18000" />
+      <workItem from="1744039910553" duration="1317000" />
     </task>
     <task id="LOCAL-00001" summary="初始化">
       <option name="closed" value="true" />
@@ -336,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740482833174</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="任务分发及回收">
+      <option name="closed" value="true" />
+      <created>1742264693685</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742264693686</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,11 +371,12 @@
     <MESSAGE value="2024.10.16-10.17：住宅第一批任务回收+指数任务分发" />
     <MESSAGE value="代码优化" />
     <MESSAGE value="调研结果回收：住宅2025年2月第3批次" />
-    <option name="LAST_COMMIT_MESSAGE" value="调研结果回收：住宅2025年2月第3批次" />
+    <MESSAGE value="任务分发及回收" />
+    <option name="LAST_COMMIT_MESSAGE" value="任务分发及回收" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Price_Survey$price_survey.coverage" NAME="price-survey Coverage Results" MODIFIED="1729324413119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Price_Survey$test.coverage" NAME="test Coverage Results" MODIFIED="1732005746562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Price_Survey$main.coverage" NAME="main Coverage Results" MODIFIED="1742263219824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Price_Survey$main.coverage" NAME="main Coverage Results" MODIFIED="1743478566099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
